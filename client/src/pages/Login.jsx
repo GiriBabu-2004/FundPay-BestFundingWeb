@@ -28,86 +28,87 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 to-blue-300 px-4">
-      <motion.h2
-        className="text-4xl font-bold mb-8 text-indigo-600 text-center"
-        initial={{ opacity: 0, y: -20 }}
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 px-4">
+      <div className="absolute top-4 left-4 flex items-center space-x-2">
+        <img src="/FundLogo.png" alt="FundPay Logo" className="w-10 h-10" />
+        <p  className="text-2xl font-bold text-indigo-800">FundPay</p>
+      </div>
+      <motion.div
+        className="w-full max-w-md bg-white/40 backdrop-blur-md border border-white/30 rounded-2xl shadow-lg p-8"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
       >
-        Welcome to FundPay
-      </motion.h2>
-
-      <motion.form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white p-8 rounded-xl shadow-xl"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          />
+        <div className="flex items-center justify-center mb-6">
+          <h1 className="text-3xl font-semibold text-indigo-800">Login</h1>
         </div>
 
-        <div className="mb-6 relative">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            name="password"
-            required
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full mt-1 px-4 py-2 pr-10 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          />
-          <span
-            onClick={togglePasswordVisibility}
-            className="absolute right-3 top-9 text-gray-500 cursor-pointer"
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+
+          <div className="relative">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              name="password"
+              required
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full mt-1 px-4 py-2 pr-10 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+            <span
+              onClick={togglePasswordVisibility}
+              className="absolute right-3 top-9 text-gray-500 cursor-pointer"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          {error && (
+            <motion.p
+              className="text-red-600 text-sm"
+              role="alert"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {error}
+            </motion.p>
+          )}
+
+          <motion.button
+            type="submit"
+            disabled={loading}
+            whileTap={{ scale: 0.95 }}
+            className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
+            {loading ? 'Logging in...' : 'Login'}
+          </motion.button>
 
-        {error && (
-          <motion.p
-            className="text-red-600 text-sm mb-4"
-            role="alert"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {error}
-          </motion.p>
-        )}
-
-        <motion.button
-          type="submit"
-          disabled={loading}
-          whileTap={{ scale: 0.95 }}
-          className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </motion.button>
-
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Don’t have an account?{' '}
-          <a href="/signup" className="text-indigo-600 underline hover:text-indigo-800">
-            Sign up
-          </a>
-        </p>
-      </motion.form>
+          <p className="mt-4 text-center text-sm text-gray-600">
+            Don’t have an account?{' '}
+            <a href="/signup" className="text-indigo-600 underline hover:text-indigo-800">
+              Sign up
+            </a>
+          </p>
+        </form>
+      </motion.div>
     </div>
   );
 };
