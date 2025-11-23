@@ -67,9 +67,10 @@ const Navbar = () => {
     <nav className="bg-white shadow-lg px-6 py-4 flex flex-wrap items-center justify-between relative z-50">
       <Link
         to="/"
-        className="text-3xl font-extrabold text-indigo-600 hover:text-indigo-700 transition-all duration-300"
+        className="text-3xl font-extrabold text-indigo-800 hover:text-indigo-900 transition-all duration-300"
         aria-label="CrowdFund Home"
       >
+        <img src="/FundLogo.png" alt="FundPay Logo" className="inline-block mr-2 -mt-1.5 h-10 w-10" />
         FundPay
       </Link>
 
