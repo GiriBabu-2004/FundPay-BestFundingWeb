@@ -137,7 +137,6 @@ const Navbar = () => {
               className="flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold text-sm transition"
               title="Add Campaign"
             >
-              <FiPlusCircle size={18} />
               Add Campaign
             </Link>
             <NotificationBell />
@@ -149,7 +148,6 @@ const Navbar = () => {
           className="flex items-center gap-1 text-gray-600 hover:text-indigo-600 font-medium text-sm transition"
           title="Contact"
         >
-          <FiMail size={18} />
           Contact
         </Link>
 

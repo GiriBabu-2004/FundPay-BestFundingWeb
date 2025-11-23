@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAllCampaigns } from '../services/api.js';
 import Navbar from '../components/Navbar';
 import CampaignCard from '../components/CampaignCard';
-import Loader from '../components/Loader'; // Assuming you have this
+import Loader from '../components/Loader';
+import Footer from '../components/Footer.jsx';
 
 const AdminDashboard = () => {
   const { isAdmin, loading: authLoading } = useAuthContext();
@@ -16,7 +17,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (!authLoading && !isAdmin) {
-      navigate('/'); // Redirect non-admins
+      navigate('/');
     }
   }, [isAdmin, authLoading, navigate]);
 
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
 
   if (authLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen" aria-live="polite">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 text-gray-700">
         <p>Checking authorization...</p>
       </div>
     );
@@ -51,33 +52,53 @@ const AdminDashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-screen mx-auto p-6 min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
-        <h2 className="text-3xl font-bold mb-6">Manage Campaigns</h2>
 
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 px-6 py-10">
+
+        {/* Header / Intro Section */}
+        <div className="max-w-5xl mx-auto text-center mb-12">
+          <div className="backdrop-blur-md bg-white/40 p-8 rounded-2xl shadow-lg border border-white/30">
+            <h1 className="text-3xl font-extrabold text-indigo-800 mb-3">
+              Admin Dashboard
+            </h1>
+            <p className="text-gray-700 leading-relaxed text-md">
+              FundPay brings visionaries and supporters together, transforming bold ideas into 
+              reality through collaborative funding, shared purpose, and the power of people 
+              joining hands to build a better tomorrow.
+            </p>
+          </div>
+        </div>
+
+        {/* Loader */}
         {loading ? (
-          <div aria-live="polite">
+          <div className="flex justify-center py-20">
             <Loader />
           </div>
         ) : fetchError ? (
-          <div className="text-center text-red-600" aria-live="polite">
-            <p>{fetchError}</p>
+          /* Error Section */
+          <div className="text-center max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md border">
+            <p className="text-red-600 font-medium">{fetchError}</p>
             <button
               onClick={fetchCampaigns}
-              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+              className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-transform transform hover:scale-105"
             >
               Retry
             </button>
           </div>
         ) : campaigns.length === 0 ? (
-          <p>No campaigns found.</p>
+          <p className="text-center text-gray-600">No campaigns found.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          /* Campaign Cards Grid */
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
             {campaigns.map((campaign) => (
-              <CampaignCard key={campaign._id} campaign={campaign} />
+              <div className="transform hover:scale-[1.02] transition-all">
+                <CampaignCard key={campaign._id} campaign={campaign} />
+              </div>
             ))}
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -31,10 +31,7 @@ const ContactPage = () => {
     setMessage(null);
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        body: formData,
-      });
+      const res = await fetch('/api/contact', { method: 'POST', body: formData });
 
       if (!res.ok) throw new Error('Failed to send message');
 
@@ -51,113 +48,126 @@ const ContactPage = () => {
   };
 
   return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center p-6">
-    <motion.div
-      className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-md"
-      variants={fadeIn}
-      initial="initial"
-      animate="animate"
-    >
-      <h2 className="text-2xl font-semibold mb-4 text-center">Facing any issue?</h2>
-      <form onSubmit={handleSubmit} className="space-y-5" encType="multipart/form-data">
-        <div>
-          <label htmlFor="issue" className="block font-medium mb-1">
-            Issue Summary <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="issue"
-            type="text"
-            value={issue}
-            onChange={(e) => setIssue(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 flex items-center justify-center p-6">
+      <div className="absolute top-4 left-4 flex items-center space-x-2">
+        <img src="/FundLogo.png" alt="FundPay Logo" className="w-10 h-10" />
+        <a href='/' className="text-2xl font-bold text-indigo-800">FundPay</a>
+      </div>
+      <motion.div
+        className="w-full max-w-lg p-8 bg-white/40 backdrop-blur-md rounded-2xl shadow-lg border border-white/30"
+        variants={fadeIn}
+        initial="initial"
+        animate="animate"
+      >
+        <h2 className="text-3xl font-extrabold mb-6 text-center text-indigo-800">
+          Facing any issue?
+        </h2>
 
-        <div>
-          <label htmlFor="description" className="block font-medium mb-1">
-            Problem Statement <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            rows={4}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="screenshot" className="block font-medium mb-1">
-            Upload Screenshot <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="screenshot"
-            type="file"
-            accept="image/*"
-            onChange={(e) => setScreenshot(e.target.files[0])}
-            className="w-full"
-          />
-        </div>
-
-        <motion.button
-          type="submit"
-          disabled={loading}
-          className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 disabled:bg-gray-400 transition"
-          whileHover={!loading ? { scale: 1.05 } : {}}
-          whileTap={!loading ? { scale: 0.95 } : {}}
-          aria-label="Submit contact form"
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+          encType="multipart/form-data"
         >
-          <FiSend size={20} />
-          {loading ? 'Sending...' : 'Submit'}
-        </motion.button>
-      </form>
+          <div>
+            <label htmlFor="issue" className="block font-medium mb-1 text-gray-700">
+              Issue Summary <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="issue"
+              type="text"
+              value={issue}
+              onChange={(e) => setIssue(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Briefly describe the issue"
+              required
+            />
+          </div>
 
-      {message && (
-        <motion.p
-          className={`mt-5 text-center ${
-            message.type === 'error' ? 'text-red-600' : 'text-green-600'
-          } font-medium`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          {message.text}
-        </motion.p>
-      )}
+          <div>
+            <label htmlFor="description" className="block font-medium mb-1 text-gray-700">
+              Problem Statement <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              rows={4}
+              placeholder="Explain the problem in detail"
+              required
+            />
+          </div>
 
-      <motion.div className="mt-8 text-center space-y-3 text-gray-700">
-        <p className="font-semibold">Connect with me:</p>
-        <div className="flex justify-center gap-6 text-2xl">
-          <a
-            href="https://twitter.com/yourhandle"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            className="text-blue-500 hover:text-blue-700 transition"
+          <div>
+            <label htmlFor="screenshot" className="block font-medium mb-1 text-gray-700">
+              Upload Screenshot (optional)
+            </label>
+            <input
+              id="screenshot"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setScreenshot(e.target.files[0])}
+              className="w-full text-sm text-gray-600"
+            />
+          </div>
+
+          <motion.button
+            type="submit"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 disabled:bg-gray-400 transition"
+            whileHover={!loading ? { scale: 1.05 } : {}}
+            whileTap={!loading ? { scale: 0.95 } : {}}
+            aria-label="Submit contact form"
           >
-            <FiTwitter />
-          </a>
-          <a
-            href="https://linkedin.com/in/yourhandle"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="text-blue-700 hover:text-blue-900 transition"
+            <FiSend size={20} />
+            {loading ? 'Sending...' : 'Submit'}
+          </motion.button>
+        </form>
+
+        {message && (
+          <motion.p
+            className={`mt-5 text-center font-medium ${
+              message.type === 'error' ? 'text-red-600' : 'text-green-600'
+            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
-            <FiLinkedin />
-          </a>
-          <a
-  href="mailto:gofuture440@gmail.com"
-  aria-label="Email"
-  className="text-red-600 hover:text-red-800 transition flex items-center gap-1"
->
-  <FiMail />
-  <span className="text-sm">gofuture440@gmail.com</span>
-</a>
+            {message.text}
+          </motion.p>
+        )}
+
+        <div className="mt-8 text-center text-gray-700">
+          <p className="font-semibold mb-3">Connect with me:</p>
+          <div className="flex justify-center gap-6 text-2xl">
+            <a
+              href="https://twitter.com/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              className="text-blue-500 hover:text-blue-700 transition"
+            >
+              <FiTwitter />
+            </a>
+            <a
+              href="https://linkedin.com/in/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-blue-700 hover:text-blue-900 transition"
+            >
+              <FiLinkedin />
+            </a>
+            <a
+              href="mailto:gofuture440@gmail.com"
+              aria-label="Email"
+              className="text-red-600 hover:text-red-800 transition flex items-center gap-1"
+            >
+              <FiMail />
+              <span className="text-sm">gofuture440@gmail.com</span>
+            </a>
+          </div>
         </div>
       </motion.div>
-    </motion.div>
     </div>
   );
 };

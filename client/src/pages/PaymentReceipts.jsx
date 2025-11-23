@@ -58,7 +58,11 @@ const PaymentReceipts = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-6 text-center">My Payment Receipts</h2>
+      <div className="absolute top-4 left-4 flex items-center space-x-2">
+        <img src="/FundLogo.png" alt="FundPay Logo" className="w-10 h-10" />
+        <a href='/' className="text-2xl font-bold text-indigo-800">FundPay</a>
+      </div>  
+      <h2 className="text-2xl font-bold mb-6 text-center text-indigo-800">My Payment Receipts</h2>
       <motion.ul
         className="space-y-5"
         variants={listVariants}
